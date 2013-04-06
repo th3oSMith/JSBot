@@ -75,6 +75,17 @@ http.createServer(function (request, response){
 
 console.log("Server has started");
 
+var mailer=require("./mail.js");
+
+var mailCron = setInterval(function(){
+	var file = fs.readFileSync("alert.txt");
+	file=file.toString();
+	fs.writeFileSync("alert.txt","Rapport d'éxécution du script de Veille :\n\n");
+	mailer.send(file);
+},3600000);
+
+
+
 
 function getLogs(){
 
